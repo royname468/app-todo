@@ -1,4 +1,3 @@
-// src/components/App.tsx
 import React, { useEffect, useState } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
@@ -7,7 +6,9 @@ import axios from 'axios';
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [filter, setFilter] = useState<'all' | 'completed' | 'incomplete'>('all');
+  const [filter, setFilter] = useState<'all' | 'completed' | 'incomplete'>(
+    'all'
+  );
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -27,7 +28,10 @@ const App: React.FC = () => {
 
   const handleAddTask = async (taskName: string) => {
     try {
-      const response = await axios.post('/tasks', { name: taskName, completed: false });
+      const response = await axios.post('/tasks', {
+        name: taskName,
+        completed: false,
+      });
       setTasks((prev) => [...prev, response.data]);
     } catch (error) {
       console.error('Lỗi khi thêm task:', error);
@@ -52,12 +56,12 @@ const App: React.FC = () => {
     <div>
       <h1>Task Manager</h1>
       <TaskForm onAddTask={handleAddTask} />
-      <TaskList tasks={filteredTasks} onToggleTask={handleToggleTask} />
       <div>
         <button onClick={() => setFilter('all')}>All</button>
         <button onClick={() => setFilter('completed')}>Completed</button>
         <button onClick={() => setFilter('incomplete')}>Incomplete</button>
       </div>
+      <TaskList tasks={filteredTasks} onToggleTask={handleToggleTask} />
     </div>
   );
 };

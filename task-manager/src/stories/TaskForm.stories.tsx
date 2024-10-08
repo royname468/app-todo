@@ -18,12 +18,16 @@ export const Default = () => {
 
   const handleAddTask = async (name: string) => {
     await createTask({ name, completed: false });
-    fetchTasks();
+    await fetchTasks();
   };
 
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
 
   return (
     <div>

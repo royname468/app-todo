@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Input, Button, message } from 'antd';
-import { createTask } from '../api/taskApi'; // Import hàm createTask từ api
 
 interface TaskFormProps {
   onAddTask: (name: string) => void;
@@ -16,10 +15,12 @@ const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
     }
 
     try {
-      await onAddTask(taskName); 
+      await onAddTask(taskName);
       setTaskName('');
     } catch (error) {
       message.error('Failed to add task. Please try again.');
+      console.log(error);
+      
     }
   };
 

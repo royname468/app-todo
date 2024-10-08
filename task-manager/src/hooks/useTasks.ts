@@ -4,7 +4,9 @@ import { Task } from '../types/Task';
 
 const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [filter, setFilter] = useState<'all' | 'completed' | 'incomplete'>('all');
+  const [filter, setFilter] = useState<'all' | 'completed' | 'incomplete'>(
+    'all'
+  );
 
   useEffect(() => {
     const fetchTasks = async () => {

@@ -8,9 +8,9 @@ export default {
   component: TaskItem,
 };
 
-const Template = (args: { task: Task; onToggle: (id: number) => void }) => {
+const Template = (_args: { task: Task; onToggle: (id: number) => void }) => {
   const [task, setTask] = useState<Task | null>(null);
-
+  console.log(_args);
   useEffect(() => {
     const fetchTasks = async () => {
       const tasks = await getTasks();
@@ -29,12 +29,7 @@ const Template = (args: { task: Task; onToggle: (id: number) => void }) => {
     console.log(`Task ${id} toggled`);
   };
 
-  return (
-    <TaskItem
-      task={task}
-      onToggle={handleToggle}
-    />
-  );
+  return <TaskItem task={task} onToggle={handleToggle} />;
 };
 
 export const Default = Template.bind({});
