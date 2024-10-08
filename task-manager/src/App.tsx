@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/components/App.tsx
+import React, { useEffect, useState } from 'react';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
+import { Task } from './types/Task';
+import axios from 'axios';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [filter, setFilter] = useState<'all' | 'completed' | 'incomplete'>('all');
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get('/tasks');
+        if (Array.isArray(response.data)) {
+          setTasks(response.data);
+        } else {
+          console.error('Dữ liệu không hợp lệ từ API:', response.data);
+        }
+      } catch (error) {
+        console.error('Lỗi khi fetching tasks:', error);
+      }
+    };
+    fetchTasks();
+  }, []);
+
+  const handleAddTask = async (taskName: string) => {
+    try {
+      const response = await axios.post('/tasks', { name: taskName, completed: false });
+      setTasks((prev) => [...prev, response.data]);
+    } catch (error) {
+      console.error('Lỗi khi thêm task:', error);
+    }
+  };
+
+  const handleToggleTask = (taskId: number) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'completed') return task.completed;
+    if (filter === 'incomplete') return !task.completed;
+    return true;
+  });
 
   return (
-    <>
+    <div>
+      <h1>Task Manager</h1>
+      <TaskForm onAddTask={handleAddTask} />
+      <TaskList tasks={filteredTasks} onToggleTask={handleToggleTask} />
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <button onClick={() => setFilter('all')}>All</button>
+        <button onClick={() => setFilter('completed')}>Completed</button>
+        <button onClick={() => setFilter('incomplete')}>Incomplete</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
