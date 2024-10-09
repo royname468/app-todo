@@ -1,6 +1,5 @@
-// src/components/TaskList.tsx
 import React from 'react';
-import { Checkbox } from 'antd';
+import TaskItem from './TaskItem';
 import { Task } from '../types/Task';
 
 interface TaskListProps {
@@ -12,14 +11,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onToggleTask }) => {
   return (
     <div>
       {tasks.map((task) => (
-        <div key={task.id} style={{ display: 'flex', alignItems: 'center' }}>
-          <Checkbox
-            checked={task.completed}
-            onChange={() => onToggleTask(task.id)}
-          >
-            {task.name}
-          </Checkbox>
-        </div>
+        <TaskItem key={task.id} task={task} onToggleTask={onToggleTask} />
       ))}
     </div>
   );

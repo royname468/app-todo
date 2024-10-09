@@ -4,13 +4,16 @@ import { Task } from '../types/Task';
 
 interface TaskItemProps {
   task: Task;
-  onToggle: (id: number) => void;
+  onToggleTask: (taskId: number) => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleTask }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-      <Checkbox checked={task.completed} onChange={() => onToggle(task.id)}>
+    <div>
+      <Checkbox
+        checked={task.completed}
+        onChange={() => onToggleTask(task.id)}
+      >
         {task.name}
       </Checkbox>
     </div>
