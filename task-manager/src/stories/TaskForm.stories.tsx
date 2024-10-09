@@ -3,12 +3,21 @@ import TaskForm from '../components/TaskForm';
 import { getTasks, createTask } from '../api/taskApi';
 import { Task } from '../types/Task';
 
+interface TaskFormStoryArgs {
+  buttonColor: string;
+  buttonText: string;
+}
+
 export default {
   title: 'Components/TaskForm',
   component: TaskForm,
+  argTypes: {
+    buttonColor: { control: 'color' },
+    buttonText: { control: 'text' },
+  },
 };
 
-export const Default = () => {
+const Template = (args: TaskFormStoryArgs) => { 
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const fetchTasks = async () => {
@@ -31,7 +40,13 @@ export const Default = () => {
 
   return (
     <div>
-      <TaskForm onAddTask={handleAddTask} />
+      <TaskForm 
+        onAddTask={handleAddTask} 
+        buttonColor={args.buttonColor} 
+        buttonText={args.buttonText} 
+      />
     </div>
   );
 };
+
+export const Default = Template.bind({});

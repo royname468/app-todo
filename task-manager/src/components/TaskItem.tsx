@@ -1,21 +1,27 @@
 import React from 'react';
-import { Checkbox } from 'antd';
-import { Task } from '../types/Task';
+
+interface Task {
+  id: number;
+  name: string;
+  completed: boolean;
+}
 
 interface TaskItemProps {
   task: Task;
-  onToggleTask: (taskId: number) => void;
+  onToggle: (id: number) => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleTask }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle }) => {
   return (
     <div>
-      <Checkbox
-        checked={task.completed}
-        onChange={() => onToggleTask(task.id)}
-      >
+      <label>
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={() => onToggle(task.id)}
+        />
         {task.name}
-      </Checkbox>
+      </label>
     </div>
   );
 };

@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+# Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Giới thiệu
+Task Manager là một ứng dụng quản lý công việc được xây dựng bằng React. Ứng dụng cho phép người dùng thêm, cập nhật và theo dõi trạng thái của các công việc.
 
-Currently, two official plugins are available:
+### Công nghệ chính
+- **React**: Thư viện JavaScript để xây dựng giao diện người dùng.
+- **Ant Design**: Thư viện component UI cho React.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Công cụ phát triển
+- **Vite**: Công cụ xây dựng và phát triển ứng dụng JavaScript.
+- **TypeScript**: Ngôn ngữ lập trình tăng cường cho JavaScript.
+- **Jest**: Framework kiểm thử JavaScript.
+- **Storybook**: Công cụ phát triển và kiểm thử UI component.
 
-## Expanding the ESLint configuration
+### Công cụ linter và formatter
+- **ESLint**: Công cụ linter cho JavaScript/TypeScript.
+- **Prettier**: Công cụ định dạng mã nguồn tự động.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Thư viện phụ thuộc
+- **Axios**: Thư viện gọi API và thực hiện các yêu cầu HTTP.
+- **Styled-components**: Thư viện cho phép viết CSS trong JavaScript.
+- **json-server**: Công cụ tạo API giả lập dựa trên file JSON.
 
-- Configure the top-level `parserOptions` property like this:
+### Phần mở rộng cho Storybook
+- **@storybook/addon-essentials**: Bộ tiện ích mở rộng cho Storybook.
+- **@storybook/addon-links**: Tiện ích tạo liên kết giữa các câu chuyện trong Storybook.
+- **@storybook/addon-interactions**: Tiện ích kiểm thử các tương tác trong Storybook.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+### Các loại định nghĩa
+- **@types/react**: Các loại định nghĩa TypeScript cho React.
+- **@types/react-dom**: Các loại định nghĩa TypeScript cho React DOM.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Cài đặt
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
+1. Clone repository này:
+- https://github.com/royname468/app-todo
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
-```
+2 Cài đặt các phụ thuộc:
+- npm install
+
+3 Chạy JSON SERVER API 
+- npm run start:api
+
+4 Chạy ứng dung API 
+- npm run dev
+
+5 Chạy Storybook 
+- npm run storybook  
+
+6 Chạy Jest
+- npm test
+
+7 Chạy ESLint
+- npx eslint . 
+
+8 Chạy Prettier
+- npx prettier --check .
+- npx prettier --write .
